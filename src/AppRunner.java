@@ -56,8 +56,17 @@ public class AppRunner {
 
     private void chooseAction(UniversalArray<Product> products) {
         showActions(products);
+        print(" a - пополнить баланс");
+        print(" j - пополнение картой ");
         print(" h - Выйти");
         String action = fromConsole().substring(0, 1);
+
+        if ("a".equalsIgnoreCase(action)) {
+            coinAcceptor.setAmount(coinAcceptor.getAmount() + 25);
+            print("Вы пополнили баланс на 25");
+            return;
+        }
+
         try {
             for (int i = 0; i < products.size(); i++) {
                 if (products.get(i).getActionLetter().equals(ActionLetter.valueOf(action.toUpperCase()))) {
