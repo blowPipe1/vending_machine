@@ -36,7 +36,7 @@ public class AppRunner {
         print("В автомате доступны:");
         showProducts(products);
 
-        print("Монет на сумму: " + coinAcceptor.getAmount());
+        print("средств на сумму: " + coinAcceptor.getAmount());
 
         UniversalArray<Product> allowProducts = new UniversalArrayImpl<>();
         allowProducts.addAll(getAllowedProducts().toArray());
@@ -60,6 +60,11 @@ public class AppRunner {
         print(" j - пополнение картой ");
         print(" h - Выйти");
         String action = fromConsole().substring(0, 1);
+
+        if ("j".equalsIgnoreCase(action)){
+            cardPayment();
+            return;
+        }
 
         if ("a".equalsIgnoreCase(action)) {
             coinAcceptor.setAmount(coinAcceptor.getAmount() + 25);
@@ -104,5 +109,35 @@ public class AppRunner {
 
     private void print(String msg) {
         System.out.println(msg);
+    }
+
+    private void cardPayment(){
+        Scanner sc = new Scanner(System.in);
+
+        print("Введите номер карты (14)");
+        String cardNumber = sc.nextLine();
+        int length = cardNumber.length();
+
+        while (length != 14){
+            print("номер должен быть 14 значным");
+            print("Введите номер карты (14)");
+            cardNumber = sc.nextLine();
+            length = cardNumber.length();
+        }
+
+        int sum = 0;
+
+        if (length == 14){
+            print("Введите сумму для пополнения");
+            sum = sc.nextInt();
+            while (sum <= 0 || sum > 9999){
+                print("баланс пополнения должен быть положительным и не привышать 10000");
+                print("Введите сумму для пополнения");
+                sum = sc.nextInt();
+            }
+            coinAcceptor.setAmount(coinAcceptor.getAmount() + sum);
+        } else {
+            print("номер введен неверно");
+        }
     }
 }
