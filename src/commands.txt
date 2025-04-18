@@ -3,3 +3,4 @@ git add src/AppRunner.java
 git add commands.txt
 git commit -m
 git push origin home_work_25
+git rm --cached
